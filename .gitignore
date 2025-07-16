@@ -4,5 +4,5 @@ venv/
 output/
 models/
 repos/
-*.txt
 *.log
+.env
