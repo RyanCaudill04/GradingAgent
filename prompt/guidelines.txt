@@ -1,0 +1,15 @@
+1. **Unused Imports** (2 points each)
+   - Pattern: Import statements that are declared but never used in the code
+   - Look for: `import` statements where the imported class/package is not referenced
+
+2. **Magic Numbers** (3 points each)
+   - Pattern: Hard-coded numeric literals (except 0, 1, -1)
+   - Look for: Numeric values directly in code without named constants
+
+3. **Long Method** (5 points each)
+   - Pattern: Methods with more than 20 lines of code
+   - Look for: Method bodies that exceed 20 lines (excluding braces and comments)
+
+4. **Missing Javadoc** (1 point each)
+   - Pattern: Public methods without Javadoc comments
+   - Look for: Public method declarations without preceding /** */ comments
