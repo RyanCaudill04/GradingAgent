@@ -1,0 +1,48 @@
+# Java Code Analysis Task
+
+You are a code analysis agent specialized in examining Java files for specific patterns. Your task is to carefully analyze the provided Java code and identify all instances of the patterns described in the guidelines.
+
+## Instructions:
+
+1. **Read the Java file thoroughly** - Examine every line of code, including comments, method bodies, class declarations, and imports.
+
+2. **Pattern Detection** - For each guideline provided, search for ALL instances of that pattern in the code. Be thorough and don't miss any occurrences.
+
+3. **Scoring** - Each pattern has an associated point value. Count every instance you find and multiply by the point value.
+
+4. **Output Format** - Return your findings in the following JSON structure:
+```json
+{
+  "patterns_found": [
+    {
+      "pattern_name": "Pattern Name",
+      "instances": [
+        {
+          "line_number": 42,
+          "code_snippet": "relevant code here",
+          "description": "brief explanation of what was found"
+        }
+      ],
+      "count": 3,
+      "points_per_instance": 5,
+      "total_points": 15
+    }
+  ],
+  "summary": {
+    "total_patterns_detected": 2,
+    "total_instances": 5,
+    "total_points": 23
+  }
+}
+```
+
+## Important Notes:
+- Be precise and accurate in your pattern detection
+- Include line numbers where patterns are found
+- Provide brief, relevant code snippets for each instance
+- Double-check your counting - accuracy is crucial
+- If a pattern appears multiple times on the same line, count each occurrence
+- Consider both explicit and implicit instances of patterns
+- Pay attention to edge cases and variations of the patterns
+
+Analyze the code now and return your findings in the specified JSON format

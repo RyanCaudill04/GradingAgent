@@ -1,28 +1,16 @@
-from huggingface_hub import hf_hub_download
-from llama_cpp import Llama
 import src.Github as Github
 from pathlib import Path
-import torch
+from openai import OpenAI
+from together import Together
 import os
 
 class Agent:
-    def __init__(self, repo_name: str, model_id: str):
-      self.repo_name = repo_name          # e.g. "TheBloke/Mistral-7B-Instruct-v0.2-GGUF"
-      self.model_id = model_id            # e.g. "mistral-7b-instruct-v0.2.Q4_0"
-      self.cache_dir = os.path.expanduser(f"models/{self.model_id}")
-      self.gguf_file_path = os.path.join(self.cache_dir, f"{self.model_id}.gguf")
-        
-      if not os.path.isfile(self.gguf_file_path):
-        print(f"Model not found locally, downloading to {self.gguf_file_path}...")
-        self.gguf_file_path = hf_hub_download(
-          repo_id=self.repo_name,
-          filename=f"{self.model_id}.gguf",
-          cache_dir=self.cache_dir,
-        )
-      else:
-        print(f"Using cached model at {self.gguf_file_path}")
-        
-        self.llm = Llama(model_path=self.gguf_file_path, n_ctx=2048, n_threads=4)
+    def __init__(self, model_id: str):
+      self.model_id = model_id 
+      self.client = OpenAI(
+        base_url="https://api.together.xyz/v1",
+        api_key=os.getenv("TOGETHER_API_KEY")
+      )
 
     """
     Fetch a file from a GitHub repository, save it to a text file
@@ -52,10 +40,22 @@ class Agent:
     Takes prompt and generates text using the model
     Args:
         prompt (str): The input prompt for the model
+        model_id (str): The model identifier (e.g., "deepseek-ai/DeepSeek-R1-0528")
+        max_tokens (int): The maximum number of tokens to generate
+    Returns:
+        str: The generated text from the model
     """
-    def generate_text(self, prompt: str, max_tokens=64) -> str:
-      response = self.llm(prompt, max_tokens=max_tokens)
-      return response["choices"][0]["text"].strip()
+    def generate_text(self, prompt: str, max_tokens: int = 512) -> str:
+      response = self.client.chat.completions.create(
+        model=self.model_id,
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=max_tokens,
+        temperature=0.7,
+      )
+      return response.choices[0].message.content.strip()
+
 
     """
     Takes the response from the model and writes it to an output file
@@ -73,14 +73,14 @@ class Agent:
         url (str): The GitHub repository URL (e.g., "
         folder (str): The folder path within the repository (e.g., "src")
     """
-    def analyze_file(self, file, url, folder=""):
+    def analyze_file(self, file: str, url: str, max_tokens: int = 512, folder=""):
       file_to_analyze = self.get_github_file(file, url, folder)
       with open(file_to_analyze, "r") as f:
         content = f.read()
       self.get_prompt()
 
       info = f"{self.prompt}\n{self.guidelines}\n\nFile content:\n{content}"
-      response = self.generate_text(info, max_tokens=2048)
+      response = self.generate_text(info)
       self.output_to_file(response)
 
 
