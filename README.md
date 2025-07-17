@@ -1,3 +1,3 @@
 Grading Agent for CSCE-247 Design Pattern assignments
 
-Using model: 
+Using model: deepseek-ai/DeepSeek-R1-0528
