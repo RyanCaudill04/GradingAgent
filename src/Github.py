@@ -84,9 +84,9 @@ def fetch_github_file_to_txt(github_url, filename, output_file=None, github_toke
         if output_file is None:
             # Use original filename with .txt extension
             original_name = Path(filename).stem
-            output_file = f"output/{original_name}.txt"
+            output_file = f"repos/{original_name}.txt"
         else:
-            output_file = f"output/{output_file}"
+            output_file = f"repos/{output_file}"
 
         output_path = Path(output_file)
         output_path.parent.mkdir(parents=True, exist_ok=True)
