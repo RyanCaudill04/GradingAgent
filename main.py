@@ -1,6 +1,7 @@
-import src.Agent as Agent
+import Agents.CloudAgent as CloudAgent
+import Agents.LlamaAgent as LlamaAgent
 
-agent = Agent.Agent(
+agent = CloudAgent.Agent(
     model_id="deepseek-ai/DeepSeek-R1-0528"
 )
 

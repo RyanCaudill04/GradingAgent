@@ -1,4 +1,4 @@
-import src.Agent as Agent
+import Agents.CloudAgent as CloudAgent
 import os
 
 class Benchmark:
@@ -9,5 +9,5 @@ class Benchmark:
   def load_agents(self):
     models = os.listdir("models")
     for model in models:
-      agent = Agent.Agent(model_id=model)
+      agent = CloudAgent.Agent(model_id=model)
       self.agents.append(agent)
