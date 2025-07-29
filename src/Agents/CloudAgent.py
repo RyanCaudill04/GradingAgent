@@ -4,7 +4,7 @@ from openai import OpenAI
 from together import Together
 import os
 
-class Agent:
+class CloudAgent:
     def __init__(self, model_id: str):
       self.model_id = model_id 
       self.client = OpenAI(
@@ -51,7 +51,6 @@ class Agent:
         messages=[
             {"role": "user", "content": prompt}
         ],
-        max_tokens=max_tokens,
         temperature=0.7,
       )
       return response.choices[0].message.content.strip()
