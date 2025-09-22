@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}View Grades{% endblock %}
+
+{% block content %}
+    <h1>View Grades</h1>
+
+    <div class="assignments-list">
+        <h2>Assignments</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Assignment Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>
+                        <td>{{ assignment }}</td>
+                        <td><a href="{% url 'assignment_detail' assignment_name=assignment %}">View Grades</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

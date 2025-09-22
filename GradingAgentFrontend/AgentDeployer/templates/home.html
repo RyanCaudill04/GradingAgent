@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to Project Grader</h1>
+    <p>Your ultimate solution for efficient and fair project grading.</p>
+    <p>Get started by uploading your grading criteria or submitting a grading request.</p>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{% url 'upload_criteria' %}" class="button">Upload Criteria</a>
+        <a href="{% url 'submit_grading_request' %}" class="button" style="margin-left: 20px;">Submit Grading Request</a>
+    </div>
+</div>
+{% endblock %}

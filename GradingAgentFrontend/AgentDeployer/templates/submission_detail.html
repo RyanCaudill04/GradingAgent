@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Submission Details{% endblock %}
+
+{% block content %}
+    <h1>Submission Details</h1>
+
+    {% if submission %}
+        <div class="submission-detail-card">
+            <p><strong>Submission ID:</strong> {{ submission.submission_id }}</p>
+            <p><strong>Assignment Name:</strong> {{ submission.assignment_name }}</p>
+            <p><strong>Repo Link:</strong> <a href="{{ submission.repo_link }}">{{ submission.repo_link }}</a></p>
+            <p><strong>Submission Time:</strong> {{ submission.submission_time|date:"M d, Y H:i:s" }}</p>
+            <p><strong>Status:</strong> <span class="status-{{ submission.status|lower }}">{{ submission.status }}</span></p>
+
+            {% if submission.fastapi_response %}
+                <h2>Grading Result:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Final Grade</th>
+                            <th>Deductions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ submission.fastapi_response.final_grade }}</td>
+                            <td>
+                                <ul>
+                                    {% for deduction in submission.fastapi_response.deductions %}
+                                        <li>{{ deduction.reason }} - {{ deduction.points }} points</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No response from FastAPI yet.</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Submission not found.</p>
+    {% endif %}
+
+    <p><a href="{% url 'submission_list' %}" class="button">Back to Submission History</a></p>
+{% endblock %}

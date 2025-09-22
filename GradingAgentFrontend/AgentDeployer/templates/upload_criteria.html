@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Grading Criteria{% endblock %}
+
+{% block content %}
+    <h1>Upload Grading Criteria</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="assignment_name">Assignment Name:</label>
+            <input type="text" id="assignment_name" name="assignment_name">
+        </div>
+        <div class="form-group">
+            <label for="criteria_file">Criteria File:</label>
+            <input type="file" id="criteria_file" name="criteria_file">
+        </div>
+        <input type="submit" value="Upload">
+    </form>
+    {% if result %}
+    <h2>Result:</h2>
+    <pre>{{ result|safe }}</pre>
+    {% endif %}
+{% endblock %}

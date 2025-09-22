@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Submission History{% endblock %}
+
+{% block content %}
+    <h1>Submission History</h1>
+
+    {% if submissions %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Assignment</th>
+                    <th>Submission Time</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in submissions %}
+                    <tr>
+                        <td>{{ submission.assignment_name }}</td>
+                        <td>{{ submission.submission_time|date:"M d, Y H:i" }}</td>
+                        <td><span class="status-{{ submission.status|lower }}">{{ submission.status }}</span></td>
+                        <td><a href="{% url 'submission_detail' submission.submission_id %}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No submissions yet.</p>
+    {% endif %}
+{% endblock %}

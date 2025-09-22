@@ -1,0 +1,19 @@
+# Development override for docker-compose.yml
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+version: '3.8'
+
+services:
+  django:
+    # Override for development - enables hot reload
+    volumes:
+      - ./GradingAgentFrontend:/app
+    environment:
+      - DEBUG=True
+    # Add development-specific settings
+
+  fastapi:
+    # Override for development - enables hot reload
+    volumes:
+      - ./GradingAgentAPI:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
+    # Hot reload enabled for FastAPI development

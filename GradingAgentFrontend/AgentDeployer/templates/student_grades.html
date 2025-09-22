@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Grades for {{ student_name }}{% endblock %}
+
+{% block content %}
+    <h1>Grades for {{ student_name }}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Assignment</th>
+                <th>Final Grade</th>
+                <th>Deductions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.assignment_name }}</td>
+                    <td>{{ grade.final_grade }}</td>
+                    <td>
+                        <ul>
+                            {% for deduction in grade.deductions %}
+                                <li>{{ deduction.reason }} - {{ deduction.points }} points</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

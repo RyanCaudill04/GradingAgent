@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Assignment Details - {{ assignment_name }}{% endblock %}
+
+{% block content %}
+<h1>Assignment: {{ assignment_name }}</h1>
+
+<form method="get">
+    <input type="text" name="search" placeholder="Search by student name..." value="{{ search_query }}">
+    <input type="submit" value="Search">
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th><a href="?sort_by=student_name">Student Name</a></th>
+            <th>Token</th>
+            <th>GitHub Link</th>
+            <th>Deductions</th>
+            <th><a href="?sort_by=final_grade">Final Grade</a></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for submission in submissions %}
+            <tr>
+                <td>{{ submission.student_name }}</td>
+                <td>{{ submission.token }}</td>
+                <td><a href="{{ submission.repo_link }}">{{ submission.repo_link }}</a></td>
+                <td>
+                    <ul>
+                        {% for deduction in submission.fastapi_response.deductions %}
+                            <li>{{ deduction.reason }} - {{ deduction.points }} points</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ submission.fastapi_response.final_grade }}</td>
+                <td><a href="{% url 'student_grades' student_name=submission.student_name %}">View All Grades</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
