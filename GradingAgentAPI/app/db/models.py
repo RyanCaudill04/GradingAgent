@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -18,7 +18,8 @@ class Criteria(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     assignment_id = Column(Integer, ForeignKey("assignments.id"))
-    text = Column(Text)
+    natural_language_rubric = Column(Text)  # Natural language grading instructions for Gemini
+    regex_checks = Column(JSON, nullable=True)  # Optional list of regex checks for automatic deductions
 
     assignment = relationship("Assignment", back_populates="criteria")
 

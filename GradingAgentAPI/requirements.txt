@@ -46,6 +46,7 @@ websockets==15.0.1
 python-docx==1.1.2
 pytest==8.3.2
 requests==2.32.3
+google-generativeai==0.8.3
 
 # Optional dependency for PostgreSQL
 psycopg2-binary==2.9.9
