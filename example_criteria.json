@@ -1,0 +1,15 @@
+{
+  "natural_language_rubric": "This assignment requires students to implement a binary search algorithm from scratch.\n\nGrading Criteria:\n- Binary Search Implementation (40 points): Student must implement their own binary search algorithm. The implementation should correctly divide the search space in half with each iteration.\n- Recursive vs Iterative (10 points): Deduct points if the implementation doesn't match the required approach (check assignment requirements).\n- Edge Cases (20 points): The implementation should handle edge cases like empty arrays, single elements, element not found, etc.\n- Code Quality (15 points): Code should be well-structured, properly indented, and follow Java naming conventions.\n- Comments and Documentation (10 points): Methods should have JavaDoc comments explaining parameters and return values.\n- Time Complexity (5 points): Implementation should achieve O(log n) time complexity.\n\nTotal: 100 points\n\nBe specific about which criteria are not met and provide constructive feedback.",
+  "regex_checks": [
+    {
+      "pattern": "Arrays\\.binarySearch",
+      "deduction": 50,
+      "message": "Used built-in Arrays.binarySearch() instead of implementing from scratch"
+    },
+    {
+      "pattern": "Collections\\.binarySearch",
+      "deduction": 50,
+      "message": "Used built-in Collections.binarySearch() instead of implementing from scratch"
+    }
+  ]
+}
